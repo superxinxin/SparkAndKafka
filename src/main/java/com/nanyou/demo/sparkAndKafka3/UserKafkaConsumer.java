@@ -19,8 +19,9 @@ public class UserKafkaConsumer extends Thread
 	private static ConsumerConfig createConsumerConfig()
 	{
 		Properties props = new Properties();
-		props.put("zookeeper.connect", "192.168.190.125:2181");
-		props.put("group.id", "console-consumer-30086");
+		props.put("zookeeper.connect", "10.21.20.42:12181");
+//		props.put("zookeeper.connect", "192.168.190.125:2181");
+		props.put("group.id", "test-consumer-group");
 		props.put("zookeeper.session.timeout.ms", "90000");
 		props.put("zookeeper.sync.time.ms", "200");
 		props.put("auto.commit.interval.ms", "1000");

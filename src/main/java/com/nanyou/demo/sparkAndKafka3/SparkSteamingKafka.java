@@ -24,8 +24,9 @@ public class SparkSteamingKafka
 {
 	public static void main(String[] args) throws InterruptedException
 	{
+		//System.setProperty("hadoop.home.dir", "F:\\upload_jdk\\hadoop-2.7.6\\hadoop-2.7.6");
 		//指定kafka中的topic
-		String topics = "mytopic1";
+		String topics = "mytopic7";
 		//获得topics集合，此处只有一个topic：mytopic6
 		Collection<String> topicsSet = new HashSet<>(Arrays.asList(topics.split(",")));
 		//设置kafka参数
@@ -44,7 +45,7 @@ public class SparkSteamingKafka
 		String[] params = args;
 		//调用JavaPairDStreamMethod方法，获取params中指定字段的键值对数据。
 		JavaPairDStream<String, Integer> counts1 = JavaPairDStreamMethod(lines, params);
-//		counts1.print();
+		counts1.print();
 		JavaDStreamPrint(counts1);
 		// 可以打印所有信息，看下ConsumerRecord的结构
 //		 lines.foreachRDD(rdd -> {
@@ -74,12 +75,12 @@ public class SparkSteamingKafka
 	}
 	public static Map<String, Object> kafkaConf(String topics)
 	{
-		String brokers = "192.168.190.125:9092";
+		String brokers = "10.21.20.42:9092";
 		Map<String, Object> kafkaParams = new HashMap<>();
 		// kafka相关参数，必要！缺了会报错
 		kafkaParams.put("metadata.broker.list", brokers);
 		kafkaParams.put("bootstrap.servers", brokers);
-		kafkaParams.put("group.id", "console-consumer-30086");
+		kafkaParams.put("group.id", "console-consumer-30085");
 		kafkaParams.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		kafkaParams.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		kafkaParams.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
@@ -92,10 +93,10 @@ public class SparkSteamingKafka
 		// earliest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
 		// latest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
 		// none topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
-		// kafkaParams.put("auto.offset.reset", "latest");
+		// kafkaParams.put("auto.offset.reset", "earliest");
 		// kafkaParams.put("enable.auto.commit",false);
 		HashMap offsets = new HashMap<>();
-		offsets.put(new TopicPartition(topics, 0), 2L);
+		//offsets.put(new TopicPartition(topics, 0), 2L);
 		return offsets;
 	}
 	public static JavaStreamingContext sparkStreamingConf()
