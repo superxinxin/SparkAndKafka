@@ -20,7 +20,18 @@
        相当于对数据库中一条记录的某几个字段的字段值进行提取，这是demo代码，所以写的很弱鸡（-_-）
     7）JavaDStreamPrint方法用到了foreach算子，对每个RDD的数据进行打印，打印字符串及其次数。
        打印也可以用自带的print方法，可以每隔一秒打印时间戳，main方法里也写了。
-## 其他：
+## 相关知识：
 sparkstreaming读取kafka有两种方式，我这里用到了Direct方式，具体特点、区别、优劣不展开写，给两篇博客。
 * [sparkstreaming读取kafka的两种方式](https://blog.csdn.net/gongpulin/article/details/77619771)
 * [spark消费kafka的两种方式](https://blog.csdn.net/woloqun/article/details/80635304)
+## 实现过程及截图
+* 假设字段及数值如下
+![图1](https://github.com/superxinxin/SparkAndKafka/blob/master/Images/1.PNG) 
+* 首先执行UserKafkaMain，启动UserKafkaProducer线程生产数据
+![图2](https://github.com/superxinxin/SparkAndKafka/blob/master/Images/2.png) 
+* 然后在虚拟机的kafka中消费数据
+![图3](https://github.com/superxinxin/SparkAndKafka/blob/master/Images/3.png) 
+* 设置SparkStreamingKafka所选字段参数
+![图4](https://github.com/superxinxin/SparkAndKafka/blob/master/Images/4.png) 
+* 运行SparkStreamingKafka，选取任意字段组成数据并统计其出现次数
+![图5](https://github.com/superxinxin/SparkAndKafka/blob/master/Images/5.png) 
